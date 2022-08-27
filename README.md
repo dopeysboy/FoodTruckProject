@@ -27,20 +27,20 @@
 <p>This project was written in eclipse and used git for version control</p>
 <p>Used a pen and paper for the UML diagram, and took a picture of it with my phone</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-<a href="readme-learned"></a>
+<a name="readme-learned"></a>
 <h2 align="center">Things learned</h2>
 <p>I learned how .md files turn into html files, which made making my README easier to conceptualize for me</p>
 <p>I learned that Scanner objects cannot be created and closed multiple times if it reads from System.in</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-<a href="readme-future"></a>
+<a name="readme-future"></a>
 <h2 align="center">Things to do next time</h2>
 <p>Next time, I need to double check my UML diagram, this time around it was my first time creating a UML diagram, so it was not created the best--with incorrect symbols and not formatted in the best way</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-<a href="readme-note"></a>
+<a name="readme-note"></a>
 <h2 align="center">Things of Note</h2>
 <p>This README may seem a bit strange, but it is structured in such a way I can template future READMEs</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-<a href="readme-contact"></a>
+<a name="readme-contact"></a>
 <h2 align="center">Contact me</h2>
 <p>You can contact me at:</p>
 	<ul>
