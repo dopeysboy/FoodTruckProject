@@ -8,7 +8,7 @@ public class FoodTruck {
 	private String name;
 	private int rating;
 	
-	public FoodTruck(String foodType, String name, int rating) {
+	public FoodTruck(String name, String foodType, int rating) {
 		this.foodType = foodType;
 		this.name = name;
 		this.rating = rating;
@@ -16,6 +16,12 @@ public class FoodTruck {
 		truckIDCounter++;
 	}
 
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Truck ID: ").append(truckID).append("Truck Name: ").append(name).append(" Cuisine: ").append(foodType).append(" Rating: ").append(rating);
+		return sb.toString();
+	}
+	
 	public String getFoodType() {
 		return foodType;
 	}
