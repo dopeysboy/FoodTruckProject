@@ -1,20 +1,33 @@
 package com.skilldistillery.foodtruck.app;
 
 import java.util.Scanner;
+
+import javax.swing.plaf.basic.BasicCheckBoxMenuItemUI;
+
 import com.skilldistillery.foodtruck.entities.FoodTruck;
 
 public class FoodTruckApp {
 
-	private FoodTruck[] yelpList;
-	private FoodTruck truck1;
-	private FoodTruck truck2;
-	private FoodTruck truck3;
-	private FoodTruck truck4;
-	private FoodTruck truck5;
+	//for a reason
+	public Scanner kb = new Scanner(System.in);
+	
+	//for usrInput() to know if the usr is sick of entering data
+	public boolean keepGoing = true;
 	
 	public static void main(String[] args) {
 		FoodTruckApp fta = new FoodTruckApp();
-		fta.usrInput();
+		
+		FoodTruck truck1 = fta.usrInput();
+		FoodTruck truck2 = fta.usrInput();
+		FoodTruck truck3 = fta.usrInput();
+		FoodTruck truck4 = fta.usrInput();
+		FoodTruck truck5 = fta.usrInput();
+		
+		FoodTruck[] yelpList = fta.createArray(truck1, truck2, truck3, truck4, truck5);
+		
+		fta.listFoodTrucks(yelpList);
+		
+		fta.kb.close();
 	}
 	
 	/**
@@ -58,29 +71,31 @@ public class FoodTruckApp {
 	 * @return FoodTruck made from user's input
 	 */
 	public FoodTruck usrInput() {
-		Scanner kb = new Scanner(System.in);
-		String[] usrInputArr = new String[3];
-		String tempString = null;
-		
-		System.out.print("Please enter the truck's name, or QUIT to stop entering information: ");
-		tempString = kb.next();
-		
-		if(tempString.equalsIgnoreCase("quit")) {
+		if(keepGoing) {
+			String[] usrInputArr = new String[3];
+			String tempString;
+			
+			System.out.print("Please enter the food truck's name, or QUIT to stop entering information: ");
+			tempString = kb.nextLine();
+			
+			if(tempString.equalsIgnoreCase("quit")) {
+				keepGoing = false;
+				kb.close();
+				return null;
+			} else {
+				usrInputArr[0] = tempString;
+			}
+			
+			System.out.print("Please enter the food truck's food type: ");
+			usrInputArr[1] = kb.nextLine();
+			
+			System.out.print("Please enter your food rating for the truck: ");
+			usrInputArr[2] = kb.nextLine();
+			
+			return makeFoodTruck(usrInputArr);
+		} else {
 			return null;
 		}
-		else {
-			usrInputArr[0] = tempString;
-		}
-		
-		System.out.println();
-		System.out.print("Please enter the truck's food type: ");
-		usrInputArr[1] = kb.next();
-		
-		System.out.println();
-		System.out.print("Please enter your rating for the truck: ");
-		usrInputArr[2] = kb.next();
-		
-		return makeFoodTruck(usrInputArr);
 	}
 	
 	/**
@@ -88,16 +103,35 @@ public class FoodTruckApp {
 	 * @param trucks
 	 */
 	public void listFoodTrucks(FoodTruck[] trucks) {
-		
+		for(FoodTruck truck : trucks) {
+			System.out.println(truck);
+		}
 	}
 	
 	/**
-	 * Creates an array of FoodTruck objects
+	 * Creates an array of FoodTruck objects, if any trucks are null, will not insert into the array
 	 * @param n FoodTruck objects
 	 * @return FoodTruck[] of size n
 	 */
 	public FoodTruck[] createArray(FoodTruck...trucks) {
-		FoodTruck[] truckArr = null;
+		FoodTruck[] truckArr;
+		int numTrucks = 0;
+		
+		for(int i = 0; i < trucks.length; i++) {
+			if(trucks[i] != null) {
+				numTrucks++;
+			}
+		}
+		
+		truckArr = new FoodTruck[numTrucks];
+		numTrucks = 0;
+		
+		for(int i = 0; i < trucks.length; i++) {
+			if(trucks[i] != null) {
+				truckArr[numTrucks] = trucks[i];
+				numTrucks++;
+			}
+		}
 		
 		return truckArr;
 	}
@@ -108,8 +142,11 @@ public class FoodTruckApp {
 	 * @return FoodTruck object made from usrInput 
 	 */
 	public FoodTruck makeFoodTruck(String[] usrInput) {
-		FoodTruck truck = null;
+		String name = usrInput[0];
+		String foodType = usrInput[1];
+		int rating = Integer.parseInt(usrInput[2]);
 		
+		FoodTruck truck = new FoodTruck(name, foodType, rating);
 		return truck;
 	}
 }

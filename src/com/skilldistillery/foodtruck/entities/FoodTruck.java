@@ -18,7 +18,7 @@ public class FoodTruck {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Truck ID: ").append(truckID).append("Truck Name: ").append(name).append(" Cuisine: ").append(foodType).append(" Rating: ").append(rating);
+		sb.append("Truck ID: ").append(truckID).append(" Truck Name: ").append(name).append(" Cuisine: ").append(foodType).append(" Rating: ").append(rating);
 		return sb.toString();
 	}
 	
