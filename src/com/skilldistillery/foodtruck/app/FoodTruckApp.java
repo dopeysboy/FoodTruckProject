@@ -24,27 +24,81 @@ public class FoodTruckApp {
 		
 		FoodTruck[] yelpList = fta.createArray(truck1, truck2, truck3, truck4, truck5);
 		
-		fta.listFoodTrucks(yelpList);
+		fta.menuLoop(yelpList);
 		
 		fta.kb.close();
 	}
 	
 	/**
-	 * Given a FoodTruck array, will return the average of their scores
-	 * @param FoodTruck[] trucks
-	 * @return double avg that is the average of all trucks' ratings 
+	 * The main loop of the application, will quit when the user inputs 4 or quit
+	 * @param FoodTruck[] for passing to the different methods
 	 */
-	public double seeAvgRating(FoodTruck[] trucks) {
-		double avg = 0d;
+	public void menuLoop(FoodTruck[] trucks) {
+		String inputString = null;
+		FoodTruck[] trucksCopy = trucks;
 		
-		return avg;
+		while(menuLooping) {
+			printMenu();
+			inputString = kb.nextLine();
+			
+			switch (inputString) {
+				case "1":
+				case "L":
+				case "l":
+					listFoodTrucks(trucksCopy);
+					break;
+				case "2":
+				case "S":
+				case "s":
+					System.out.println(seeAvgRating(trucksCopy));
+					break;
+				case "3":
+				case "D":
+				case "d":
+					System.out.println(displayHighestRating(trucksCopy));
+					break;
+				case "4":
+				case "Q":
+				case "q":
+					System.out.println("Goodbye!");
+					menuLooping = false;
+					break;
+				default:
+					System.err.println("That was not a valid input!");
+					break;
+			}
+		}
 	}
 	
 	/**
-	 * The main loop of the application, will quit when the user inputs 4 or quit
+	 * Prompts the user for a FoodTruck's name, foodType, and rating
+	 * @return FoodTruck made from user's input
 	 */
-	public void menuLoop() {
-		
+	public FoodTruck usrInput() {
+		if(keepGoing) {
+			String[] usrInputArr = new String[3];
+			String tempString;
+			
+			System.out.print("Please enter the food truck's name, or QUIT to stop entering information: ");
+			tempString = kb.nextLine();
+			
+			if(tempString.equalsIgnoreCase("quit")) {
+				keepGoing = false;
+				return null;
+			} else {
+				usrInputArr[0] = tempString;
+			}
+			
+			System.out.print("Please enter the food truck's food type: ");
+			usrInputArr[1] = kb.nextLine();
+			
+			System.out.print("Please enter your food rating for the truck: ");
+			usrInputArr[2] = kb.nextLine();
+			
+			return makeFoodTruck(usrInputArr);
+		} else {
+			return null;
+		}
 	}
 	
 	/**
@@ -66,6 +120,23 @@ public class FoodTruckApp {
 	}
 	
 	/**
+	 * Given a FoodTruck array, will return the average of their scores
+	 * @param FoodTruck[] trucks
+	 * @return double avg that is the average of all trucks' ratings 
+	 */
+	public double seeAvgRating(FoodTruck[] trucks) {
+		double avg = 0d;
+		
+		for(int i = 0; i < trucks.length; i++) {
+			avg += trucks[i].getRating();
+		}
+		
+		avg /= trucks.length;
+		
+		return avg;
+	}
+
+	/**
 	 * Given an array of FoodTrucks, returns the truck with the highest rating value
 	 * @param FoodTruck[] trucks
 	 * @return FoodTruck with the highest rating value
@@ -83,37 +154,6 @@ public class FoodTruckApp {
 		return highestTruck;
 	}
 	
-	/**
-	 * Prompts the user for a FoodTruck's name, foodType, and rating
-	 * @return FoodTruck made from user's input
-	 */
-	public FoodTruck usrInput() {
-		if(keepGoing) {
-			String[] usrInputArr = new String[3];
-			String tempString;
-			
-			System.out.print("Please enter the food truck's name, or QUIT to stop entering information: ");
-			tempString = kb.nextLine();
-			
-			if(tempString.equalsIgnoreCase("quit")) {
-				keepGoing = false;
-				kb.close();
-				return null;
-			} else {
-				usrInputArr[0] = tempString;
-			}
-			
-			System.out.print("Please enter the food truck's food type: ");
-			usrInputArr[1] = kb.nextLine();
-			
-			System.out.print("Please enter your food rating for the truck: ");
-			usrInputArr[2] = kb.nextLine();
-			
-			return makeFoodTruck(usrInputArr);
-		} else {
-			return null;
-		}
-	}
 	
 	/**
 	 * Prints to console each FoodTruck in trucks
