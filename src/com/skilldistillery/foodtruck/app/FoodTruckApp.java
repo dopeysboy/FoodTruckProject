@@ -2,17 +2,16 @@ package com.skilldistillery.foodtruck.app;
 
 import java.util.Scanner;
 
-import javax.swing.plaf.basic.BasicCheckBoxMenuItemUI;
-
 import com.skilldistillery.foodtruck.entities.FoodTruck;
 
 public class FoodTruckApp {
 
-	//for a reason
 	public Scanner kb = new Scanner(System.in);
 	
 	//for usrInput() to know if the usr is sick of entering data
 	public boolean keepGoing = true;
+	//for menuLoop() to know to keep running
+	public boolean menuLooping = true;
 	
 	public static void main(String[] args) {
 		FoodTruckApp fta = new FoodTruckApp();
@@ -52,7 +51,18 @@ public class FoodTruckApp {
 	 * Prints the menu screen to the console
 	 */
 	public void printMenu() {
+		StringBuilder sb = new StringBuilder();
+		String dashes = "--------------------------------------";
 		
+		sb.append("                Menu\n");
+		sb.append(dashes).append("\n");
+		sb.append("1. (L)ist Existing Food Trucks\n");
+		sb.append("2. (S)ee average rating\n");
+		sb.append("3. (D)isplay highest rated food truck\n");
+		sb.append("4. (Q)uit\n");
+		sb.append(dashes);
+		
+		System.out.println(sb);
 	}
 	
 	/**
@@ -61,9 +71,16 @@ public class FoodTruckApp {
 	 * @return FoodTruck with the highest rating value
 	 */
 	public FoodTruck displayHighestRating(FoodTruck[] trucks) {
-		FoodTruck truck = null;
+		FoodTruck highestTruck = trucks[0];
+		int highestRating = trucks[0].getRating();
 		
-		return truck;
+		for(int i = 1; i < trucks.length; i++) {
+			if(trucks[i].getRating() > highestRating) {
+				highestTruck = trucks[i];
+				highestRating = trucks[i].getRating();
+			}
+		}
+		return highestTruck;
 	}
 	
 	/**
